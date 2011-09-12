@@ -1,0 +1,18 @@
+facebook    = require 'facebook-graph'
+
+groupId     = process.env.FB_GROUP_ID ? "133426573417117"
+accessToken = process.env.FB_GRAPH_TOKEN
+
+task 'fetch', 'fetch facebook update', (options) ->
+  graph = new facebook.GraphAPI accessToken
+  feeds   = graph.getObject "#{groupId}/feed", (error, feeds) => 
+    if error
+      console.log error
+      console.log "Error contacting Facebook: #{error.message}"
+
+    else
+      data    = feeds.data
+      paging  = feeds.paging
+      
+      for feed in data
+        console.log feed

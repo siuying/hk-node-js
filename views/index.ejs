@@ -1,0 +1,31 @@
+<h1>Hong Kong Node of Javascripters</h1>
+<section>
+<div class="row">
+<% for (idx in data) { %>
+<% var feed = data[idx] %>
+  <div class="span9 columns">
+    <article class="post">
+      <div class="body">
+        <h2><%- feed.caption %> <small><%- feed.from.name %></small> <small class="easydate"><%- feed.created_time %></small></h2>    
+        <pre><%- feed.message %></pre>
+        <small class='comment-count'><%= feed.comments.count %> comments</small>
+      </div>
+    
+      <% if (feed.link) { %>
+        <div class="link">
+          <% if (feed.picture) { %>
+            <img src="<%= feed.picture %>" class="picture"/>
+          <% } %>
+
+          <div class="texts span6 columns">
+            <h5><a href="<%= feed.link %>"><%= feed.name %></a> <br/><small><%= feed.caption %></small></h5>
+            <p><%= feed.description ? feed.description : "" %></p>
+          </div>        
+        </div>
+      <% } %>
+      </p>
+    </article>
+  </div>
+<% } %>
+</div>
+</section>

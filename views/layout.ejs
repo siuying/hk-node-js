@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8>
+  <title></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.2.0.min.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="container">
+        <h3><a href="#">Hong Kong Node of Javascripters</a></h3>
+        <ul class="nav">
+          <li class="active"><a href="#masthead">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <%- body %>
+  </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/jquert-eastdate-0.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+  <script>jQuery(function($) { 
+    $(".easydate").each(function(idx, elem){
+      var dateStr = $(elem).text()
+      var year    = dateStr.substring(0, 4)
+      var month   = dateStr.substring(5, 7)
+      var day     = dateStr.substring(8, 10)
+      var hour    = dateStr.substring(11, 13)
+      var min     = dateStr.substring(14, 16)
+      var sec     = dateStr.substring(17, 19)
+      var date    = new Date(year, month-1, day, hour-8, min, sec)
+      $(elem).text(date.toString())
+    }).easydate([]);
+    $(".easydate").easydate([]); 
+  });
+  </script>
+</body>
+</html>

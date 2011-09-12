@@ -1,0 +1,20 @@
+.post .picture {
+}
+
+.post .body {
+  margin-bottom: 12px;
+}
+
+.post .link {
+  padding-left: 4px;
+}
+
+.post .link .texts, .post .link .picture {
+  padding-left: 4px;
+  float: left;
+}
+
+article {
+  clear: both;
+  margin-bottom: 48px;
+}
