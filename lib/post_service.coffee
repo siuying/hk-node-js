@@ -18,7 +18,7 @@ class PostService
       if error
         callback(error)
       else
-        collection.find().toArray (error, posts) ->
+        collection.find().sort({"updated_at":-1}).toArray (error, posts) ->
           if error 
             callback(error)
           else 
