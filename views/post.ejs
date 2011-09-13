@@ -1,29 +1,26 @@
-<div class="span9 columns">
-  <article class="post">
-    <div class="body">
-      <h2><%- feed.caption %> <small><%- feed.from.name %></small> <small class="easydate"><%- feed.created_at %></small></h2>    
-      <pre><%- feed.message %></pre>
-      <small class='comment-count'><%= feed.comments.length %> comments</small>
-    </div>
-  
-    <% if (feed.link) { %>
-      <div class="link">
-        <% if (feed.picture) { %>
-          <img src="<%= feed.picture %>" class="picture"/>
-        <% } %>
+<article class="post">
+  <div class="body span9 columns">
+    <h2><%- feed.caption %> <small><%- feed.from.name %></small> <small class="easydate"><%- feed.created_at %></small></h2>    
+    <pre><%- feed.message %></pre>
+    <small class='comment-count'><%= feed.comments.length %> comments</small>
+  </div>
 
-        <div class="texts span6 columns">
-          <h5><a href="<%= feed.link %>"><%= feed.name %></a> <br/><small><%= feed.caption %></small></h5>
-          <p><%= feed.description ? feed.description : "" %></p>
-        </div>        
-      </div>
-    <% } %>
-    
-    <div class="comments">
-      <% for (idx in feed.comments) { %>
-      <%- partial('comment', {comment: feed.comments[idx]}) %>
+  <% if (feed.link) { %>
+    <div class="link span8 offset1 columns">
+      <% if (feed.picture) { %>
+        <img src="<%= feed.picture %>" class="picture"/>
       <% } %>
+
+      <div class="texts">
+        <h5><a href="<%= feed.link %>"><%= feed.name %></a> <br/><small><%= feed.caption %></small></h5>
+        <p><%= feed.description ? feed.description : "" %></p>
+      </div>        
     </div>
-    
-  </article>
-</div>
+  <% } %>
+  
+  <div class="comments span8 offset1 columns">
+    <% for (idx in feed.comments) { %>
+    <%- partial('comment', {comment: feed.comments[idx]}) %>
+    <% } %>
+  </div>
+</article>

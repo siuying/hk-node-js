@@ -2,27 +2,15 @@ section.posts {
   margin-top: 48px;
 }
 
-.post .picture {
+.post .body,  .post .link, .post .comments {
+  clear: both;
 }
 
 .post .body {
   margin-bottom: 12px;
 }
 
-.post .link {
-  padding-left: 4px;
-}
-
-.post .link .texts, .post .link .picture {
-  padding-left: 4px;
-  float: left;
-}
-
 article {
   clear: both;
   margin-bottom: 48px;
-}
-
-.comment .body {
-  padding-left: 48px;
 }
