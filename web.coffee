@@ -14,7 +14,7 @@ app.use express.static("#{__dirname}/public")
 
 # Handle Requests
 app.get '/', (req, res) ->
-  feeds   = fbService.getFeed groupId, (error, feeds) => 
+  feeds   = fbService.getFeed groupId, null, (error, feeds) => 
     if error
       console.log error
       res.send "Error contacting Facebook: #{error.message}"

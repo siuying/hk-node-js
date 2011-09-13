@@ -1,13 +1,20 @@
 express           = require 'express'
 ejs               = require 'ejs'
+ISODate           = require 'isodate'
+
 {FacebookService} = require './lib/facebook_service'
+{MongoService}    = require './lib/mongo_service'
 
 groupId     = process.env.FB_GROUP_ID ? "133426573417117"
 accessToken = process.env.FB_GRAPH_TOKEN
 
-task 'fetch', 'fetch facebook update', (options) ->
-  fbService = new FacebookService accessToken
-  feeds   = fbService.getFeed groupId, (error, feeds) => 
+mongo_url   = process.env.MONGOHQ_URL
+
+task 'import', 'fetch facebook update and insert into mongo', (options) ->
+  fb        = new FacebookService accessToken
+  mongo     = new MongoService mongo_url
+
+  fb.getFeed groupId, null, (error, feeds) => 
     if error
       console.log error
       console.log "Error contacting Facebook: #{error.message}"
@@ -16,5 +23,27 @@ task 'fetch', 'fetch facebook update', (options) ->
       data    = feeds.data
       paging  = feeds.paging
       
-      for feed in data
-        console.log feed
+      mongo.save data, (error, posts) =>
+        if error
+          console.log("error saving post: ", error)
+        else
+          console.log("#{posts.length} saved")
+
+        mongo.close()
+
+      # Parse last request time
+      # last_feed = data[data.length-1]
+      # last_feed_create_datestr = "#{last_feed.created_time[0..21]}:#{last_feed.created_time[22..24]}"
+      # last_feed_create_date    = ISODate(last_feed_create_datestr)
+      # console.log last_feed_create_date.valueOf() / 1000
+      
+
+task 'export', "export mongo database", (options) ->
+  mongo     = new MongoService mongo_url
+  mongo.findAll (error, posts) =>
+    if error
+      console.log("error saving post: ", error)
+    else
+      console.log("#{posts.length} records saved")
+
+    mongo.close()

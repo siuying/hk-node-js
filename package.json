@@ -2,9 +2,11 @@
   "name": "hknode",
   "version": "0.0.1",
   "dependencies": {
-    "express": "2.4.6",
-    "coffee-script": "1.1.2",
-    "facebook-graph": "0.0.6",
-    "ejs": "0.4.3"
+    "express": ">= 2.4.6",
+    "coffee-script": ">= 1.1.2",
+    "facebook-graph": ">= 0.0.6",
+    "ejs": ">= 0.4.3",
+    "isodate": ">= 0.0.2"
+    "mongoskin": ">= 0.1.3"
   }
 }
