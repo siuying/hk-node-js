@@ -75,34 +75,50 @@ class PostService
     # fetch all feeds
     all_feeds = []
 
-    # create a fetch callback: if more pages available, fetch them
-    onFeedFetched = (error, feeds) => 
-      if error
-        console.log error
-        console.log "Error contacting Facebook: #{error.message}"
+    onFeedFetched = 
+      # a fetch callback that save fetched records and fetch more pages if available, fetch them
+      if since
+        # a fetch callback that save fetched records 
+        (error, feeds) => 
+          if error
+            console.log error
+            console.log "Error contacting Facebook: #{error.message}"
+          else
+            data    = feeds.data
+            paging  = feeds.paging
+
+            all_feeds.push(data)
+            all_feeds = _.flatten(all_feeds)
+            @save all_feeds, callback
       else
-        data    = feeds.data
-        paging  = feeds.paging
+        (error, feeds) => 
+          if error
+            console.log error
+            console.log "Error contacting Facebook: #{error.message}"
+          else
+            data    = feeds.data
+            paging  = feeds.paging
 
-        all_feeds.push(data)
-        all_feeds = _.flatten(all_feeds)
+            all_feeds.push(data)
+            all_feeds = _.flatten(all_feeds)
 
-        # fetch more if needed
-        if data.length > 0 && paging?.next
-          last_feed = data[data.length-1]
-          last_feed_create_datestr = "#{last_feed.created_time[0..21]}:#{last_feed.created_time[22..24]}"
-          last_feed_create_date    = ISODate(last_feed_create_datestr)
-          timestamp = last_feed_create_date.valueOf() / 1000
+            # fetch more if needed
+            if data.length > 0 && paging?.next
+              last_feed = data[data.length-1]
+              last_feed_create_datestr = "#{last_feed.created_time[0..21]}:#{last_feed.created_time[22..24]}"
+              last_feed_create_date    = ISODate(last_feed_create_datestr)
+              timestamp = last_feed_create_date.valueOf() / 1000
 
-          console.log("fetch message before: #{last_feed_create_date}")
-          fb.getFeed groupId, {until: timestamp, since: since}, onFeedFetched
+              console.log("fetch message before: #{last_feed_create_date}")
+              fb.getFeed groupId, {until: timestamp}, onFeedFetched
 
-        else
-          @save all_feeds, callback
+            else
+              @save all_feeds, callback
 
     # fetch first page
     console.log("fetch message ...")
     fb.getFeed groupId, {since: since}, onFeedFetched
+
 
 root = exports ? window
 root.PostService = PostService
