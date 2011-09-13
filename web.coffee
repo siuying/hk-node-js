@@ -30,10 +30,8 @@ app.get '/', (req, res) ->
 app.listen port, ->
   console.log "Listening on " + port
 
+# Schedule import job every 5 minutes  
 lastImportTime = null
-
-# Schedule Hourly Update
-  
 importFacebook = =>
   if lastImportTime
     timestamp = parseInt("" + (lastImportTime.valueOf() / 1000)) 
