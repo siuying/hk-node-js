@@ -1,11 +1,13 @@
-facebook    = require 'facebook-graph'
+express           = require 'express'
+ejs               = require 'ejs'
+{FacebookService} = require './lib/facebook_service'
 
 groupId     = process.env.FB_GROUP_ID ? "133426573417117"
 accessToken = process.env.FB_GRAPH_TOKEN
 
 task 'fetch', 'fetch facebook update', (options) ->
-  graph = new facebook.GraphAPI accessToken
-  feeds   = graph.getObject "#{groupId}/feed", (error, feeds) => 
+  fbService = new FacebookService accessToken
+  feeds   = fbService.getFeed groupId, (error, feeds) => 
     if error
       console.log error
       console.log "Error contacting Facebook: #{error.message}"
