@@ -49,5 +49,5 @@ importFacebook = =>
       lastImportTime = new Date()
     mongo.close()
 
-setInterval importFacebook, 1000 * 60 * 60 * 24
+setInterval importFacebook, 1000 * 60 * 5
 importFacebook()
