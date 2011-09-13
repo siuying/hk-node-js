@@ -1,26 +1,25 @@
 express           = require 'express'
 ejs               = require 'ejs'
-{FacebookService} = require './lib/facebook_service'
+{MongoService}    = require './lib/mongo_service'
 
 # Configuration
-groupId       = process.env.FB_GROUP_ID ? "133426573417117"
-accessToken   = process.env.FB_GRAPH_TOKEN
 port          = process.env.PORT || 3000
+mongo_url     = process.env.MONGOHQ_URL
 
 # Setup services
-fbService     = new FacebookService accessToken
+mongo         = new MongoService mongo_url
 app           = express.createServer express.logger()
 app.use express.static("#{__dirname}/public")
 
 # Handle Requests
 app.get '/', (req, res) ->
-  feeds   = fbService.getFeed groupId, null, (error, feeds) => 
+  feeds   = mongo.findAll (error, feeds) => 
     if error
       console.log error
-      res.send "Error contacting Facebook: #{error.message}"
+      res.send "Error contacting mongo: #{error.message}"
+
     else
-      data    = feeds.data
-      paging  = feeds.paging
+      data    = feeds
       res.render 'index.ejs', {data}
 
 # Start Listening
