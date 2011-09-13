@@ -1,16 +1,16 @@
 express           = require 'express'
 ejs               = require 'ejs'
 {FacebookService} = require './lib/facebook_service'
-{MongoService}    = require './lib/mongo_service'
+{PostService}    = require './lib/post_service'
 
 # Configuration
 port          = process.env.PORT || 3000
 mongoUrl      = process.env.MONGOHQ_URL
 groupId       = process.env.FB_GROUP_ID ? "133426573417117"
 accessToken   = process.env.FB_GRAPH_TOKEN
-mongo         = new MongoService mongoUrl
 
 # Setup services
+mongo         = new PostService mongoUrl
 fb            = new FacebookService accessToken
 app           = express.createServer express.logger()
 app.use express.static("#{__dirname}/public")

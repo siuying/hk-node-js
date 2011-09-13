@@ -1,5 +1,6 @@
 facebook = require 'facebook-graph'
 
+# Facebook service abstract Facebook access
 class FacebookService
   constructor: (@accessToken) ->
     @graph = new facebook.GraphAPI(@accessToken)

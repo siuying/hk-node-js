@@ -2,14 +2,17 @@ Mongo     = require 'mongoskin'
 ISODate   = require 'isodate'
 {_}       = require 'underscore'
 
-class MongoService
+# Provide Post related service. backed by MongoDB
+class PostService
   constructor: (url) ->
     @db = Mongo.db("#{url}?auto_reconnect")
     @db.collection('posts').ensureIndex([['facebook_id', 1]], true, -> )
 
+  # Close DB connection
   close: ->
     @db.close()
-
+    
+  # Find all posts on server
   findAll: (callback) ->
     @db.collection('posts').open (error, collection) ->
       if error
@@ -21,7 +24,7 @@ class MongoService
           else 
             callback(null, posts)
 
-  # save posts to database, update records as needed
+  # Save posts to database, update records as needed
   save: (posts, callback) ->
     # if posts is not an array, make it an array
     if typeof(posts.length) == "undefined"
@@ -66,6 +69,7 @@ class MongoService
             else if counter == postCount
               callback(null, posts)
   
+  # Import a facebook group into mongo db
   importFacebook: (fb, groupId, since, callback) ->
     # fetch all feeds
     all_feeds = []
@@ -100,4 +104,4 @@ class MongoService
     fb.getFeed groupId, {since: since}, onFeedFetched
 
 root = exports ? window
-root.MongoService = MongoService
+root.PostService = PostService
