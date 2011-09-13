@@ -46,12 +46,13 @@ class PostService
       post.updated_at = ISODate("#{post.updated_time[0..21]}:#{post.updated_time[22..24]}") if post.updated_time
       delete post.updated_time if post.updated_time
       
-      if post.comments == undefined 
-        post.comments = []
+      if post.comments == undefined || post.comments.data == undefined
+        post.comments = {data: []}
 
-      for comment in post.comments
+      post.comments = for comment in post.comments.data
         comment.created_at = ISODate("#{comment.created_time[0..21]}:#{comment.created_time[22..24]}") if comment.created_time
         comment.updated_at = ISODate("#{comment.updated_time[0..21]}:#{comment.updated_time[22..24]}") if comment.updated_time
+        comment
 
     # save posts
     @db.collection('posts').open (error, collection) =>

@@ -22,3 +22,7 @@ article {
   clear: both;
   margin-bottom: 48px;
 }
+
+.comment .body {
+  padding-left: 48px;
+}
