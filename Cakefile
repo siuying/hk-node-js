@@ -1,6 +1,7 @@
 express           = require 'express'
 ejs               = require 'ejs'
 ISODate           = require 'isodate'
+{exec}            = require 'child_process'
 
 {FacebookService} = require './lib/facebook_service'
 {PostService}    = require './lib/post_service'
@@ -30,3 +31,12 @@ task 'export', "export mongo database", (options) ->
       console.log("#{posts.length} records saved")
 
     mongo.close()
+
+task 'docs', "generate docs, require docco", (options) ->
+  console.log("Generating Docs ...")
+  exec "docco lib/*.coffee web.coffee", (error, stdout, stderr) =>
+    console.log stdout
+    console.log stderr
+    if error
+      console.log error
+    
