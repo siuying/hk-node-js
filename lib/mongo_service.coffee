@@ -54,13 +54,17 @@ class MongoService
     @db.collection('posts').open (error, collection) =>
       postCount = posts.length
       counter   = 0
-      for idx, post of posts        
-        collection.save post, {safe: true, upsert: true}, (error, result) ->
-          counter++
-          if error
-            callback(error)
-          else if counter == postCount
-            callback(null, posts)
+      
+      if posts.length == 0
+        callback(null, posts)
+      else    
+        for idx, post of posts        
+          collection.save post, {safe: true, upsert: true}, (error, result) ->
+            counter++
+            if error
+              callback(error)
+            else if counter == postCount
+              callback(null, posts)
   
   importFacebook: (fb, groupId, since, callback) ->
     # fetch all feeds
