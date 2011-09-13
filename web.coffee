@@ -8,6 +8,7 @@ port          = process.env.PORT || 3000
 mongoUrl      = process.env.MONGOHQ_URL
 groupId       = process.env.FB_GROUP_ID ? "133426573417117"
 accessToken   = process.env.FB_GRAPH_TOKEN
+mongo         = new MongoService mongoUrl
 
 # Setup services
 fb            = new FacebookService accessToken
@@ -40,14 +41,12 @@ importFacebook = =>
   else
     console.log("import facebook messages")
 
-  mongo  = new MongoService mongoUrl
   mongo.importFacebook fb, groupId, timestamp, (error, records) =>
     if error
       console.log("Failed saving to mongo", error)
     else
       console.log("#{records.length} saved.")
       lastImportTime = new Date()
-    mongo.close()
 
 setInterval importFacebook, 1000 * 60 * 5
 importFacebook()
