@@ -41,5 +41,5 @@ importFacebook = =>
       console.log("#{records.length} saved.")
       lastImportTime = new Date()
 
-# setInterval importFacebook, 1000 * 60 * 5
-# importFacebook()
+setInterval importFacebook, 1000 * 60 * 5
+importFacebook()
