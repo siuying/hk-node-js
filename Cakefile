@@ -3,8 +3,8 @@ ejs               = require 'ejs'
 ISODate           = require 'isodate'
 {exec}            = require 'child_process'
 
-{FacebookService} = require './lib/facebook_service'
-{PostService}    = require './lib/post_service'
+{FacebookService} = require './lib/services/facebook_service'
+{PostService}     = require './lib/services/post_service'
 
 groupId     = process.env.FB_GROUP_ID ? "133426573417117"
 accessToken = process.env.FB_GRAPH_TOKEN
