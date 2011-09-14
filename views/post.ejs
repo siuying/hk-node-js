@@ -1,7 +1,7 @@
 <article class="post">
   <div class="body span9 columns">
     <h2><%- feed.caption %> <small><%- feed.from.name %></small> <small class="easydate"><%- feed.created_at %></small></h2>    
-    <pre><%- feed.message %></pre>
+    <pre class="content"><%- feed.message %></pre>
     <small class='comment-count'><%= feed.comments.length %> comments</small>
   </div>
 
@@ -13,7 +13,7 @@
 
       <div class="texts">
         <h5><a href="<%= feed.link %>"><%= feed.name %></a> <br/><small><%= feed.caption %></small></h5>
-        <p><%= feed.description ? feed.description : "" %></p>
+        <p class="content"><%= feed.description ? feed.description : "" %></p>
       </div>        
     </div>
   <% } %>
