@@ -1,6 +1,6 @@
 <article class="post">
   <div class="body span9 columns">
-    <h2><%- feed.caption %> <small><%- feed.from.name %></small> <small class="easydate"><%- feed.created_at %></small></h2>    
+    <h2><%- feed.caption %> <small><%- feed.from.name %></small> <small class="easydate"><%- feed.created_at %></small> <a href="http://www.facebook.com/groups/node.js.hk/?id=<%- feed.facebook_id.split("_")[1] %>&amp;notif_t=group_activity" class="plus">+</a></h2>    
     <pre class="content"><%- feed.message %></pre>
     <small class='comment-count'><%= feed.comments.length %> comments</small>
   </div>
