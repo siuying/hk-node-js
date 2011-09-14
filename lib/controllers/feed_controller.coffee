@@ -3,7 +3,6 @@ POST_PER_PAGE   = process.env.POST_PER_PAGE ? 10
 
 class FeedController
   constructor: (@app, @mongo) ->
-    console.log("constructor mongo", mongo)
 
   configure: ->
     @app.get '/', (req, res) => 
