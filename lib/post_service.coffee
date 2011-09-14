@@ -13,12 +13,12 @@ class PostService
     @db.close()
     
   # Find all posts on server
-  findAll: (callback) ->
+  findAll: (feedPerPage = 10, page = 1, callback) ->
     @db.collection('posts').open (error, collection) ->
       if error
         callback(error)
       else
-        collection.find().sort({"updated_at":-1}).toArray (error, posts) ->
+        collection.find().sort({"updated_at":-1}).skip(feedPerPage*(parseInt(page)-1)).limit(feedPerPage).toArray (error, posts) ->
           if error 
             callback(error)
           else 

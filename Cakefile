@@ -24,7 +24,7 @@ task 'import', 'fetch facebook update and insert into mongo', (options) ->
 
 task 'export', "export mongo database", (options) ->
   mongo     = new PostService mongo_url
-  mongo.findAll (error, posts) =>
+  mongo.findAll 1000, 1, (error, posts) =>
     if error
       console.log("error saving post: ", error)
     else

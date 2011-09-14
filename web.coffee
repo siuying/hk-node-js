@@ -17,12 +17,14 @@ app.use express.static("#{__dirname}/public")
 
 # Handle Requests
 app.get '/', (req, res) ->
-  feeds   = mongo.findAll (error, feeds) => 
+  page    = req.params.page ? "1"
+  mongo.findAll 10, page, (error, feeds) => 
     if error
       console.log error
       res.send "Error contacting mongo: #{error.message}"
 
     else
+      console.log("feeds: ", feeds)
       data    = feeds
       res.render 'index.ejs', {data}
 
