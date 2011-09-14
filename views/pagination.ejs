@@ -1,6 +1,6 @@
 <div class="pagination">
   <ul>
-    <li class="prev <%- isFirstPage ? "disabled" : "" %>"><a href="/page/<%= currentPage - 1 %>">&larr; Previous</a></li>
+    <li class="prev <%- isFirstPage ? "disabled" : "" %>"><a href="/page/<%= isFirstPage ? "1" : (parseInt(currentPage) - 1) %>">&larr; Previous</a></li>
 
     <% for (idx=0; idx<pagination.length; idx++) { %>      
     <% page = pagination[idx]; %>
@@ -11,7 +11,7 @@
       <% } %>
     <% } %>  
   
-    <li class="next <%- isLastPage ? "disabled" : "" %>"><a href="/page/<%= currentPage + 1 %>">Next &rarr;</a></li>
+    <li class="next <%- isLastPage ? "disabled" : "" %>"><a href="/page/<%= isLastPage ? pageCount : (parseInt(currentPage) + 1) %>">Next &rarr;</a></li>
 
   </ul>
 </div>
