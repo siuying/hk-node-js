@@ -1,0 +1,17 @@
+<div class="pagination">
+  <ul>
+    <li class="prev <%- isFirstPage ? "disabled" : "" %>"><a href="#">&larr; Previous</a></li>
+
+    <% for (idx=0; idx<pagination.length; idx++) { %>      
+    <% page = pagination[idx]; %>
+      <% if (currentPage == page) { %>
+        <li class="active"><a href="/page/<%= page %>"><%= page %></a></li>
+      <% } else { %>
+        <li><a href="/page/<%= page %>"><%= page %></a></li>
+      <% } %>
+    <% } %>  
+  
+    <li class="next <%- isLastPage ? "disabled" : "" %>"><a href="#">Next &rarr;</a></li>
+  
+  </ul>
+</div>

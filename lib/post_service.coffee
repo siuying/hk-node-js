@@ -12,6 +12,13 @@ class PostService
   close: ->
     @db.close()
     
+  count: (callback) ->
+    @db.collection('posts').count {}, (error, result) ->
+      if error
+        callback(error)
+      else
+        callback(null, result)
+    
   # Find all posts on server
   findAll: (feedPerPage = 10, page = 1, callback) ->
     @db.collection('posts').open (error, collection) ->
