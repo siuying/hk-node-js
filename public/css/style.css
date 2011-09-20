@@ -1,4 +1,4 @@
-section.posts {
+.posts {
   margin-top: 48px;
 }
 
@@ -10,7 +10,7 @@ section.posts {
   margin-bottom: 12px;
 }
 
-article {
+.post {
   clear: both;
   margin-bottom: 48px;
 }
@@ -27,4 +27,19 @@ article {
 
 .post .comment:last-child {
   padding: 0 0 15px 0;
+}
+
+.pagination {
+  margin-top: 48px;
+  clear: both;
+}
+
+.plus {
+  color: #000000;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: -2px;
+  opacity: 0.2;
+  text-shadow: 0 1px 0 #FFFFFF;
 }

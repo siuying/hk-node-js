@@ -1,7 +1,8 @@
 express           = require 'express'
 ejs               = require 'ejs'
-{FacebookService} = require './lib/facebook_service'
-{PostService}    = require './lib/post_service'
+{FacebookService} = require './lib/services/facebook_service'
+{PostService}     = require './lib/services/post_service'
+{FeedController}  = require './lib/controllers/feed_controller'
 
 # Configuration
 port          = process.env.PORT || 3000
@@ -10,21 +11,15 @@ groupId       = process.env.FB_GROUP_ID ? "133426573417117"
 accessToken   = process.env.FB_GRAPH_TOKEN
 
 # Setup services
-mongo         = new PostService mongoUrl
-fb            = new FacebookService accessToken
 app           = express.createServer express.logger()
 app.use express.static("#{__dirname}/public")
 
-# Handle Requests
-app.get '/', (req, res) ->
-  feeds   = mongo.findAll (error, feeds) => 
-    if error
-      console.log error
-      res.send "Error contacting mongo: #{error.message}"
+mongo         = new PostService mongoUrl
+fb            = new FacebookService accessToken
+controller    = new FeedController app, mongo
 
-    else
-      data    = feeds
-      res.render 'index.ejs', {data}
+# setup feed controller
+controller.configure()
 
 # Start Listening
 app.listen port, ->
